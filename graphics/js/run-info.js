@@ -32,15 +32,18 @@ $(() => {
 			// Open the webpage with a hash parameter on the end to choose the team.
 			// eg: http://localhost:9090/bundles/speedcontrol-simpletext/graphics/player.html#2
 			// If this can't be found, defaults to 1.
-			var playerNumber = parseInt(window.location.hash.replace('#', '')) || 1;
+			var playerNumber = parseInt(window.location.hash.replace('#', '')[1]) || 1;
 			
 			// Arrays start from 0 and not 1, so have to adjust for that.
-			var team = runData.teams[playerNumber-1];
+			//var team = runData.teams[playerNumber-1];
+			var teamNumber = parseInt(window.location.hash.replace('#', '')[0]) || 1;
+			var team = runData.teams[teamNumber-1];
+                        console.log(teamNumber);
 			
 			// speedcontrol has the ability to have multiple players in a team,
 			// but for here we'll just return the 1st one.
-			player.html(team.players[0].name); // player.html
-			twitch.html(team.players[0].social.twitch); // twitch.html
+			player.html(team.players[playerNumber-1].name); // player.html
+			twitch.html("/"+team.players[playerNumber-1].social.twitch); // twitch.html
 		}
 	}
 });
