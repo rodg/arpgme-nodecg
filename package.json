@@ -1,5 +1,5 @@
 {
-  "name": "speedcontrol-simpletext",
+  "name": "arpgme-nodecg",
   "version": "2.0.0",
   "repository": {
     "type": "git",
@@ -17,6 +17,11 @@
       "nodecg-speedcontrol": "^2.0.0"
     },
     "graphics": [
+      {
+        "file": "next-game-title.html",
+        "width": 1280,
+        "height": 720
+      },
       {
         "file": "game-title.html",
         "width": 1280,
