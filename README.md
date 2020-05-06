@@ -1,4 +1,4 @@
-# speedcontrol-simpletext
+# Fork of speedcontrol-simpletext
 
 This is a simple bundle for [NodeCG](http://nodecg.com/) that runs alongside the [nodecg-speedcontrol](https://github.com/speedcontrol/nodecg-speedcontrol) bundle to display information controlled by that bundle. Please see that bundle's repository for more information.
 
@@ -15,4 +15,5 @@ Most of the bundle usage should be self explanatory; for the `player.html`/`twit
 
 See the [installation instructions on nodecg-speedcontrol](https://github.com/speedcontrol/nodecg-speedcontrol#installation) on how to install that bundle, and then (if you installed `nodecg-cli`) run `nodecg install speedcontrol/speedcontrol-simpletext` to install this bundle.
 
-This bundle has no extra configuration options.# arpgme-nodecg
+This bundle has no extra configuration options.
+# arpgme-nodecg
