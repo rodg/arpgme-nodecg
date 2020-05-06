@@ -30,7 +30,7 @@ html, body {
 	/* Change the default text font, size and colour. */
 	font-family: 'lemon-milk';
 	color: white;
-	font-size: 36px;
+        font-size: 5vw;
 }
 
 /* Adds text before/after the estimate to improve the look. */
