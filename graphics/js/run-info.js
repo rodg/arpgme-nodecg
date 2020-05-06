@@ -7,7 +7,8 @@ $(() => {
 	var gameTitle = $('#gameTitle'); // game-title.html
 	var nextGameTitle = $('#nextGameTitle'); // game-title.html
 	var nextGameCat = $('#nextGameCategory'); // game-title.html
-	var nextRunner = $('#nextRunner'); // game-title.html
+	var nextRunner = $('#nextPlayer'); // game-title.html
+	var onDeckRunner = $('#onDeckPlayer'); // game-title.html
 	var gameCategory = $('#gameCategory'); // game-category.html
 	var gameSystem = $('#gameSystem'); // game-system.html
 	var gameEstimate = $('#gameEstimate'); // game-estimate.html
@@ -18,26 +19,48 @@ $(() => {
 	// The "change" event is triggered when the current run is changed.
 	var runDataActiveRun = nodecg.Replicant('runDataActiveRun', speedcontrolBundle);
 	runDataActiveRun.on('change', (newVal, oldVal) => {
-		if (newVal)
-			updateSceneFields(newVal);
+		if (newVal){
+                    updateSceneFields(newVal);
+                    //updateSurrInfo(newVal);
+                }
 	});
 	
         // Update the next game
 	var runArray = nodecg.Replicant('runDataArray', speedcontrolBundle);
 	var surrRuns = nodecg.Replicant('runDataActiveRunSurrounding', speedcontrolBundle);
 	surrRuns.on('change', (newVal, oldVal) => {
-		if (newVal){
-                    var nextRun = runArray.value.filter( (run) => run.id == surrRuns.value.next);
-                    if(nextRun.length > 0){
-                        nextGameTitle.html(nextRun[0].game);
-                        nextGameCat.html(nextRun[0].category);
-                        if(nextRun.teams.length>0){
-                            
-                        }
-                        console.log(nextRun[0].game);
-                    }
-                }
+                updateSurrInfo(newVal);
 	});
+
+        function updateSurrInfo(newVal){
+            if (newVal){
+                console.log(surrRuns.value);
+                var nextRun = runArray.value.filter( (run) => run.id == surrRuns.value.next);
+                console.log(JSON.stringify(nextRun[0], null, 2));
+                nextGameTitle.html(nextRun[0].game);
+                nextGameCat.html(nextRun[0].category);
+                //if(nextRun[0].teams.length > 1)
+                    onDeckRunner.html(getRunnerString(nextRun[0]));
+                //else
+                    
+            }
+        }
+
+        function getRunnerString(run) {
+            if(run.teams.length>1){
+                var a = []
+                var b = []
+                run.teams[0].players.forEach( (p) => a.push(p.name));
+                run.teams[1].players.forEach( (p) => b.push(p.name));
+                console.log(a)
+                if(a.Length>0)
+                    console.log(a.join(', ') + " vs " + b.join(', '));
+                    return a.join(', ') + " vs " + b.join(', ');
+            }else{
+                return run.teams[0].players[0].name
+            }
+            console.log(nextRun[0].game);
+        }
         
 	// Sets information on the pages for the run.
 	function updateSceneFields(runData) {
@@ -65,5 +88,7 @@ $(() => {
 			player.html(team.players[playerNumber-1].name); // player.html
 			twitch.html("/"+team.players[playerNumber-1].social.twitch); // twitch.html
 		}
+                //if(runData.teams.length > 1)
+                    nextRunner.html(getRunnerString(runData));
 	}
 });
