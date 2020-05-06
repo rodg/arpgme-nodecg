@@ -5,12 +5,15 @@ $(() => {
 	
 	// JQuery selectors.
 	var gameTitle = $('#gameTitle'); // game-title.html
+	var nextGameTitle = $('#nextGameTitle'); // game-title.html
+	var nextGameCat = $('#nextGameCategory'); // game-title.html
+	var nextRunner = $('#nextRunner'); // game-title.html
 	var gameCategory = $('#gameCategory'); // game-category.html
 	var gameSystem = $('#gameSystem'); // game-system.html
 	var gameEstimate = $('#gameEstimate'); // game-estimate.html
 	var player = $('#player'); // player.html
 	var twitch = $('#twitch'); // twitch.html
-	
+        
 	// This is where the information is received for the run we want to display.
 	// The "change" event is triggered when the current run is changed.
 	var runDataActiveRun = nodecg.Replicant('runDataActiveRun', speedcontrolBundle);
@@ -19,6 +22,23 @@ $(() => {
 			updateSceneFields(newVal);
 	});
 	
+        // Update the next game
+	var runArray = nodecg.Replicant('runDataArray', speedcontrolBundle);
+	var surrRuns = nodecg.Replicant('runDataActiveRunSurrounding', speedcontrolBundle);
+	surrRuns.on('change', (newVal, oldVal) => {
+		if (newVal){
+                    var nextRun = runArray.value.filter( (run) => run.id == surrRuns.value.next);
+                    if(nextRun.length > 0){
+                        nextGameTitle.html(nextRun[0].game);
+                        nextGameCat.html(nextRun[0].category);
+                        if(nextRun.teams.length>0){
+                            
+                        }
+                        console.log(nextRun[0].game);
+                    }
+                }
+	});
+        
 	// Sets information on the pages for the run.
 	function updateSceneFields(runData) {
 		gameTitle.html(runData.game); // game-title.html
